@@ -20,12 +20,16 @@ def read_dht11_dat():
     GPIO.setup(DHTPIN, GPIO.IN, GPIO.PUD_UP)
 
     # DHT11 的 DATA 引脚检测到外部信号有低电平时，等待外部信号低电平结束，
-    # 延迟后 DHT11 的 DATA 引脚处于输出状态，输出 80 微秒的低电平作为应答信号，
+    # 延迟后 DHT11 的 DATA 引脚处于输出状态，DHT11 输出 80 微秒的低电平作为应答信号，
     # 紧接着输出 80 微秒的高电平通知外设准备接收数据
+    print("Waiting for DHT11 response")
     while GPIO.input(DHTPIN) == GPIO.LOW:
         continue
+    print("DHT11 responds LOW")
     while GPIO.input(DHTPIN) == GPIO.HIGH:
         continue
+    print("DHT11 responds HIGH")
+    print("Ready to receive data")
 
     # 开始接收数据
     j = 0  # 计数器
