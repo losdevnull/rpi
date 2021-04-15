@@ -1,1 +1,1 @@
-# rpi
+# Playground for Raspberry Pi
