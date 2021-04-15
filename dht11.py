@@ -38,9 +38,11 @@ def read_dht11_dat():
     while j < 40:
         k = 0
         while GPIO.input(DHTPIN) == GPIO.LOW:  # 先是 50 微秒的低电平
+            print("getting LOW")
             continue
 
         while GPIO.input(DHTPIN) == GPIO.HIGH:  # 接着是26-28微秒的高电平，或者 70 微秒的高电平
+            print("getting HIGH")
             k += 1
             if k > 100:
                 break
