@@ -53,6 +53,7 @@ def read_handler(vpin):
     
     tsl2591_sensor = TSL2591.TSL2591()
     lux = tsl2591_sensor.Lux
+    print('lux={}'.format(lux))
     blynk.virtual_write(L_VPIN, lux)
 
 
