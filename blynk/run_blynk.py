@@ -9,7 +9,7 @@ import RPi.GPIO as GPIO
 import dht11
 import blynklib
 
-libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'tsl2591x', 'waveshare_TSL2591')
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'tsl2591x')
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
