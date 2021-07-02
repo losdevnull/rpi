@@ -31,10 +31,12 @@ GPIO_DHT11_PIN = 17
 GPIO.setwarnings(True)
 GPIO.setmode(GPIO.BCM)
 
+dht11_sensor = dht11.DHT11(pin=GPIO_DHT11_PIN)
+tsl2591_sensor = TSL2591.TSL2591()
+
 
 @blynk.handle_event('read V{}'.format(T_VPIN))
 def read_handler(vpin):
-    dht11_sensor = dht11.DHT11(pin=GPIO_DHT11_PIN)
     result = dht11_sensor.read()
     temperature = result.temperature
     humidity = result.humidity
@@ -50,8 +52,7 @@ def read_handler(vpin):
         # show aka 'disabled' that mean we errors on data read
         blynk.set_property(T_VPIN, 'color', ERR_COLOR)
         blynk.set_property(H_VPIN, 'color', ERR_COLOR)
-    
-    tsl2591_sensor = TSL2591.TSL2591()
+ 
     lux = tsl2591_sensor.Lux
     print('lux={}'.format(lux))
     blynk.virtual_write(L_VPIN, lux)
