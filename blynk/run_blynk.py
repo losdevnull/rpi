@@ -36,7 +36,7 @@ tsl2591_sensor = TSL2591.TSL2591()
 
 
 @blynk.handle_event('read V{}'.format(T_VPIN))
-def read_handler(vpin):
+def read_dht11(vpin):
     result = dht11_sensor.read()
     temperature = result.temperature
     humidity = result.humidity
@@ -52,7 +52,10 @@ def read_handler(vpin):
         # show aka 'disabled' that mean we errors on data read
         blynk.set_property(T_VPIN, 'color', ERR_COLOR)
         blynk.set_property(H_VPIN, 'color', ERR_COLOR)
- 
+
+
+@blynk.handle_event('read V{}'.format(L_VPIN))
+def read_tsl259(vpin):
     lux = tsl2591_sensor.Lux
     print('lux={}'.format(lux))
     blynk.virtual_write(L_VPIN, lux)
