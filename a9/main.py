@@ -35,9 +35,9 @@ def led_control(pin):
                 time.sleep(1)
             if flag == 2:
                 GPIO.output(pin, GPIO.HIGH)
-                time.sleep(1)
+                time.sleep(.5)
                 GPIO.output(pin, GPIO.LOW)
-                time.sleep(1)
+                time.sleep(.5)
         except Exception:
             continue
 
