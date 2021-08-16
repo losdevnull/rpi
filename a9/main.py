@@ -28,7 +28,7 @@ payload = json.dumps({
 headers = {
   'Content-Type': 'application/json'
 }
-MAX_NOTIFY = 3
+MAX_NOTIFY = 1
 notify_counter = MAX_NOTIFY
 
 
