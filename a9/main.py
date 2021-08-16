@@ -6,7 +6,7 @@ import threading
 LED_PIN_J = 18
 LED_PIN_L = 21
 A9_NOTIF_URL = 'http://81.70.151.102:8000/notif'
-BLINK_THRESOLD = 300  # 5 mins
+BLINK_THRESOLD = 180  # 3 mins
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED_PIN_J, GPIO.OUT)
 GPIO.setup(LED_PIN_L, GPIO.OUT)
@@ -15,7 +15,14 @@ GPIO.setup(LED_PIN_L, GPIO.OUT)
 led_j = 0
 led_l = 0
 
-thread_stop = 0
+thread_stop = 
+
+# blynk
+BLYNK_EVENT_URL = 'https://blynk.cloud/external/api/logEvent'
+BLYNK_EVENT_PARAMS = {
+    'token': 'csBpjPyVbhGhNaYYLDIz_U2U9NEou0wN',
+    'code': 'notif'
+}
 
 
 def led_control(pin):
@@ -58,6 +65,7 @@ while True:
             led_l = 0
             if now - timestamp < BLINK_THRESOLD:
                 led_j = 2
+                requests.get(BLYNK_EVENT_URL, params=BLYNK_EVENT_PARAMS)
         if user == 'L':
             led_l = 1
             led_j = 0
