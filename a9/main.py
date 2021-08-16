@@ -3,6 +3,7 @@ import time
 import requests
 import threading
 import json
+import os
 
 LED_PIN_J = 18
 LED_PIN_L = 21
@@ -19,7 +20,7 @@ led_l = 0
 thread_stop = 0
 
 # slack
-slack_url = "https://hooks.slack.com/services/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"
+slack_url = os.getenv("SLACK_WEBHOOK")
 payload = json.dumps({
   "channel": "a9notif",
   "text": "Hello, World"
@@ -27,7 +28,6 @@ payload = json.dumps({
 headers = {
   'Content-Type': 'application/json'
 }
-
 
 
 def led_control(pin):
