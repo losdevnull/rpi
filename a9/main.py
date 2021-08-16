@@ -15,7 +15,7 @@ GPIO.setup(LED_PIN_L, GPIO.OUT)
 led_j = 0
 led_l = 0
 
-thread_stop = 
+thread_stop = 0
 
 # blynk
 BLYNK_EVENT_URL = 'https://blynk.cloud/external/api/logEvent'
