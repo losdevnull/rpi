@@ -8,7 +8,7 @@ import os
 LED_PIN_J = 18
 LED_PIN_L = 21
 A9_NOTIF_URL = 'http://81.70.151.102:8000/notif'
-BLINK_THRESOLD = 180  # 3 mins
+BLINK_THRESOLD = 300  # 5 mins
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(LED_PIN_J, GPIO.OUT)
 GPIO.setup(LED_PIN_L, GPIO.OUT)
@@ -28,6 +28,8 @@ payload = json.dumps({
 headers = {
   'Content-Type': 'application/json'
 }
+MAX_NOTIFY = 3
+notify_counter = MAX_NOTIFY
 
 
 def led_control(pin):
@@ -70,8 +72,11 @@ while True:
             led_l = 0
             if now - timestamp < BLINK_THRESOLD:
                 led_j = 2
-                requests.request("POST", slack_url, headers=headers, data=payload)
+                if notify_counter > 0:
+                    requests.request("POST", slack_url, headers=headers, data=payload)
+                    notify_counter -= 1
         if user == 'L':
+            notify_counter = MAX_NOTIFY  # reset counter
             led_l = 1
             led_j = 0
             if now - timestamp < BLINK_THRESOLD:
