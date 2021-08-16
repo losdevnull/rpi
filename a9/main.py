@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import requests
 import threading
+import json
 
 LED_PIN_J = 18
 LED_PIN_L = 21
@@ -17,12 +18,16 @@ led_l = 0
 
 thread_stop = 0
 
-# blynk
-BLYNK_EVENT_URL = 'https://blynk.cloud/external/api/logEvent'
-BLYNK_EVENT_PARAMS = {
-    'token': 'csBpjPyVbhGhNaYYLDIz_U2U9NEou0wN',
-    'code': 'notif'
+# slack
+slack_url = "https://hooks.slack.com/services/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"
+payload = json.dumps({
+  "channel": "a9notif",
+  "text": "Hello, World"
+})
+headers = {
+  'Content-Type': 'application/json'
 }
+
 
 
 def led_control(pin):
@@ -65,7 +70,7 @@ while True:
             led_l = 0
             if now - timestamp < BLINK_THRESOLD:
                 led_j = 2
-                requests.get(BLYNK_EVENT_URL, params=BLYNK_EVENT_PARAMS)
+                requests.request("POST", slack_url, headers=headers, data=payload)
         if user == 'L':
             led_l = 1
             led_j = 0
